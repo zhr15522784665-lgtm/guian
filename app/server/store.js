@@ -280,6 +280,21 @@ function createStore(opts) {
       return task;
     },
 
+    /** 完全重置：清掉本机所有人的聊天记录、记忆和内存缓存 */
+    async resetEverything() {
+      await Promise.all([...queues.values()]);
+      cache.clear();
+      queues.clear();
+      let files = [];
+      try { files = await fs.promises.readdir(dir); } catch (err) { if (err && err.code !== 'ENOENT') throw err; }
+      for (const f of files) {
+        if (/^u_.+\.json$/.test(f) || /^u_.+\.tmp$/.test(f)) {
+          await fs.promises.unlink(path.join(dir, f)).catch(() => {});
+        }
+      }
+      return true;
+    },
+
     /** 仅供调试/健康检查 */
     _stats() {
       return { users: cache.size, dir };

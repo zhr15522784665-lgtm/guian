@@ -673,6 +673,20 @@ async function clearAll() {
   }
 }
 
+async function resetAll() {
+  const ok = confirm('完全重置：所有聊天记录、记忆、成长记录都会删掉，就像第一次打开一样。这个操作不能撤销。');
+  if (!ok) return;
+  const res = await api('/api/reset', { method: 'POST', body: JSON.stringify({ confirm: true }) });
+  if (res.ok) {
+    try { sessionStorage.clear(); } catch (_) { /* 无存储权限 */ }
+    try { localStorage.clear(); } catch (_) { /* 无存储权限 */ }
+    alert('已经完全重置。');
+    location.reload();
+  } else {
+    alert(res.message || '没重置成功');
+  }
+}
+
 // ── 轻提示 ──
 
 let toastTimer = null;
@@ -1017,6 +1031,7 @@ async function boot() {
     $('send').disabled = !e.target.value.trim() || state.sending || state.historyLoading;
   });
   $('clear-all').addEventListener('click', clearAll);
+  $('reset-all').addEventListener('click', resetAll);
   document.querySelectorAll('[data-leave-reason]').forEach((btn) => {
     btn.addEventListener('click', () => finishLeave(btn.dataset.leaveReason));
   });

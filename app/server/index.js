@@ -24,7 +24,7 @@ const { createGrowStore } = require('./grow-store');
 const { createGrowReviewer, reviewSummary } = require('./grow-review');
 const { createToneStore } = require('./tone-store');
 const { createContentSafe } = require('./content-safe');
-const { resolveIdentity } = require('./auth');
+const { resolveIdentity, COOKIE_NAME } = require('./auth');
 const config = require('./config');
 
 const store = createStore({ dir: config.dataDir, maxMessagesPerBot: config.maxMessagesPerBot });
@@ -271,6 +271,17 @@ async function handleHistory(uid, query) {
     feedbackAllowed: !feedbackBlocked(state, all),
     messages: msgs.map((m) => ({ role: m.role, content: m.content, seq: m.seq, turnId: m.turnId, safety: m.safety, modelReply: m.modelReply, feedbackKind: m.feedbackKind }))
   };
+}
+
+/** 完全重置：所有对话、记忆、成长记录都删掉，身份也换新，回到第一次打开的样子 */
+async function handleReset(res, body) {
+  if (!body || body.confirm !== true) {
+    return { ok: false, code: 'NEED_CONFIRM', message: '需要确认' };
+  }
+  await store.resetEverything();
+  await fs.promises.rm(path.join(config.dataDir, 'grow'), { recursive: true, force: true });
+  res.setHeader('Set-Cookie', `${COOKIE_NAME}=; Path=/; HttpOnly; SameSite=Lax; Max-Age=0`);
+  return { ok: true, reset: true };
 }
 
 async function handleClear(uid, body) {
@@ -699,6 +710,10 @@ const server = http.createServer(async (req, res) => {
     if (req.method === 'POST' && pathname === '/api/grow/leave') {
       const result = await handleGrowLeave(uid, await readBody(req));
       return sendJson(res, result.ok === false ? 400 : 200, result);
+    }
+
+    if (req.method === 'POST' && pathname === '/api/reset') {
+      return sendJson(res, 200, await handleReset(res, await readBody(req)));
     }
 
     if (req.method === 'POST' && pathname === '/api/clear') {
