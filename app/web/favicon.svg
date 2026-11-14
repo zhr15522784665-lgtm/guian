@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <rect width="64" height="64" rx="14" fill="#fbf8f3"/>
+  <rect x="4.5" y="4.5" width="55" height="55" rx="11" fill="none" stroke="#e6dfd4" stroke-width="1.5"/>
+  <text x="32" y="45" text-anchor="middle" font-family="Songti SC, Noto Serif CJK SC, serif" font-size="38" fill="#b4671f">归</text>
+</svg>

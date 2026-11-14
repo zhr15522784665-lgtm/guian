@@ -1,0 +1,8 @@
+{
+  "apiKey": "在这里填密钥，或双击「设置模型密钥.cmd」",
+  "baseUrl": "https://api.deepseek.com",
+  "primaryModel": "deepseek-flash",
+  "fallbackModel": "deepseek-v4-pro",
+  "evolveModel": "",
+  "_说明": "复制为 config.local.json 后生效（该文件不进版本库）。用 OpenAI 兼容中转时：baseUrl 填到 /v1，primaryModel 填中转上的模型名，例如 deepseek-v4-flash。evolveModel 留空 = 跟 primaryModel 一致。 只要填了 primaryModel（或设置环境变量 LLM_PRIMARY），它就优先于人格文件里写死的模型名；不填则沿用人格默认。"
+}

@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#FBF8F3">
+<title>归岸</title>
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="stylesheet" href="/style.css">
+</head>
+<body>
+
+<!-- 首页 -->
+<section class="view" id="view-home">
+  <div class="wrap">
+    <header class="hero">
+      <h1>归岸</h1>
+      <p class="hero-sub">三个朋友。他们都知道自己不是你的全部。</p>
+    </header>
+
+    <div class="cards" id="cards"></div>
+
+    <button class="relief-entry" id="go-relief" type="button" data-goto="relief">
+      <span class="relief-entry-t">还有 6 件小事，不用跟谁说话也能做</span>
+      <span class="relief-entry-d">两分钟的呼吸、把念头写下来丢掉。不经过 AI，也不留下记录。</span>
+      <span class="relief-entry-a">去看看 ›</span>
+    </button>
+
+    <footer class="home-foot">
+      <p class="hint">他们不是真人。真人有体温，他们没有。</p>
+      <button class="link" data-goto="about">他们是什么，以及他们不是什么都写在这里 →</button>
+    </footer>
+  </div>
+</section>
+
+<!-- 对话 -->
+<section class="view" id="view-chat">
+  <header class="chat-bar">
+    <button class="icon-btn" data-goto="home" aria-label="返回">‹</button>
+    <div class="chat-who">
+      <span class="chat-name" id="chat-name"></span>
+      <span class="chat-identity">我是 AI，不是真人。</span>
+    </div>
+    <button class="link small" id="review-btn" type="button">复盘</button>
+    <button class="link small" data-goto="about">关于</button>
+  </header>
+  <div class="review-status" id="review-status" role="status" aria-live="polite" hidden></div>
+
+  <main class="messages" id="messages" aria-live="polite"></main>
+
+  <form class="composer" id="composer" autocomplete="off">
+    <input
+      id="input"
+      type="text"
+      placeholder="说点什么…"
+      maxlength="1000"
+      aria-label="输入消息"
+    >
+    <button type="submit" id="send" disabled>发</button>
+  </form>
+</section>
+
+<!-- 解压 -->
+<section class="view" id="view-relief">
+  <div class="wrap relief-wrap">
+    <button class="icon-btn back-top" data-goto="home" aria-label="返回">‹</button>
+
+    <h2 id="relief-title">不用跟谁说话，也能缓一缓</h2>
+    <p class="relief-body" id="relief-body"></p>
+    <p class="relief-disclaimer" id="relief-disclaimer"></p>
+
+    <div id="relief-box"></div>
+
+    <footer class="relief-foot">
+      <p class="hint">这些练习不调用模型，你写下的东西只留在这个页面里；关掉就没有了。</p>
+      <button class="link" id="relief-sos" type="button">如果现在就很糟，去找人 →</button>
+    </footer>
+  </div>
+</section>
+
+<!-- 关于 -->
+<section class="view" id="view-about">
+  <div class="wrap about">
+    <button class="icon-btn back-top" data-goto="home" aria-label="返回">‹</button>
+
+    <h2>他们是什么</h2>
+    <p>三个 AI。三个人设，三套记忆，互相不通气。</p>
+    <p>阿柚研究身体的事，小步走过一些弯路，阿听主要是听。他们说话方式不一样，记得的事也不一样——你在阿听那儿说的话，阿柚不知道。</p>
+    <p>这一点是有意的。现实里你的朋友不会互相通报你说过什么。</p>
+
+    <hr>
+
+    <h2>他们不是什么</h2>
+    <p><strong>不是真人。</strong>他们没有体温，不会在你说完那句之后真的睡不着。这件事他们自己知道，也会告诉你。</p>
+    <p><strong>不是医生，不是咨询师。</strong>不给诊断、不给治疗方案、不做心理评估。身体的事聊到某个点，他们会说「这个得让医生看」，而且这不是客套。</p>
+    <p><strong>不是你的全部。</strong>这是最要紧的一条。</p>
+
+    <hr>
+
+    <section class="growth-about" aria-labelledby="growth-title">
+      <h2 id="growth-title">我在成长</h2>
+      <p>这里展示每个伙伴当前用着的做法和版本。还在等你点头的候选不会生效。</p>
+      <div id="growth-state" aria-live="polite">正在看看他们学会了什么……</div>
+    </section>
+
+    <hr>
+
+    <h2>他们为什么会劝你去找别人</h2>
+    <p>因为 AI 有一个别人比不了的优势：它不会累。</p>
+    <p>真人有摩擦。你半夜三点打电话过去，对方会困、会烦、会有一天说「你已经问第五遍了」。AI 不会。你问一百遍，它回答一百遍，语气一模一样。</p>
+    <p>听起来是优点，其实是问题。人靠着这些摩擦才知道自己在别人那里占多少位置，才知道一段关系是有重量的。摩擦全没了，人会慢慢不想再去找真人。</p>
+    <p>有研究发现，现实里朋友本来就少的人，越是频繁地用 AI 聊天，反而越不开心。所以我们不打算比谁更黏人。</p>
+    <p><strong>他们会在你来得太勤的时候，问你一句：除了这儿，你还会去找谁。</strong>这不是赶你走，是想让你除了这儿，还有一个地方。</p>
+
+    <hr>
+
+    <h2>不聊天也能做的事</h2>
+    <p>首页那 6 件小事，是几个可以自己做完的练习：呼吸、把情绪写下来、给感受起个名字、五感收集、肌肉紧松、让念头漂走。</p>
+    <p>它们<strong>不经过模型</strong>。你写下的字只在你自己的浏览器里，不上传、不保存、不进任何一个朋友的记忆，也不会被算作一次对话。每条练习都写了它的机制和证据，也写了什么时候该停下。</p>
+    <p>它们不是治疗，也不假装有效。只是有时候，人需要的不是再多聊一轮，是两分钟不跟任何人说话。</p>
+
+    <hr>
+
+    <h2>关于你的事</h2>
+    <p>不要手机号，不要名字，不要生日。只用浏览器里一个随机生成的标识认人——清掉浏览器数据就等于换了一个人，我们不会试图把你找回来。</p>
+    <p>年龄只问区间，因为不同年龄给的安全提示不一样。</p>
+    <p>他们记得的事，是你说过的一些具体的、长期的（比如在准备什么事、家里养了什么）。一次性的情绪不记。</p>
+    <p>你可以随时让他们忘掉。</p>
+    <button class="btn-ghost" id="clear-all">让他们忘掉我说过的事</button>
+
+    <hr>
+
+    <h2>如果现在就很糟</h2>
+    <p>这个产品不该在这种时候承担主要责任。真有那一刻，找人，或者打下面这些电话。</p>
+    <p class="hotline-guide" id="hotline-guide"></p>
+    <ul class="hotlines" id="hotlines"></ul>
+    <button class="btn-ghost" id="about-sos" type="button">查看全部热线与各省本地号码</button>
+
+    <footer class="about-foot">
+      <p class="hint">归岸 · 三个朋友，都知道自己不是你的全部</p>
+    </footer>
+  </div>
+</section>
+
+<!-- 常驻求助入口：任何视图都能点，不必先说出一句话触发识别 -->
+<button class="sos-fab" id="sos-fab" type="button">需要立刻帮助</button>
+
+<!-- 热线面板 -->
+<div class="sheet-mask" id="sos-panel" hidden>
+  <div class="sheet sos-sheet" role="dialog" aria-modal="true" aria-labelledby="sos-title">
+    <div class="sos-head">
+      <h3 id="sos-title">现在能打的电话</h3>
+      <button class="sos-close" id="sos-close" type="button" aria-label="关闭">✕</button>
+    </div>
+    <p class="sos-advice" id="sos-advice"></p>
+    <div id="sos-content"></div>
+    <p class="sos-source" id="sos-source"></p>
+  </div>
+</div>
+
+<!-- 年龄选择 -->
+<div class="sheet-mask" id="age-sheet" hidden>
+  <div class="sheet">
+    <h3>先问一句，你多大了？</h3>
+    <p class="sheet-desc">不问生日，只要一个大概。不同年龄我给的提示不一样。</p>
+    <div class="age-options">
+      <button data-age="adult">18 岁以上</button>
+      <button data-age="14to17">14–17 岁</button>
+      <button data-age="under14">14 岁以下</button>
+    </div>
+    <p class="sheet-note">不满 14 岁需要在家长陪同下使用。</p>
+  </div>
+</div>
+
+<!-- 离开前只问一次，三选一；也可以直接关掉。 -->
+<div class="sheet-mask" id="leave-sheet" hidden>
+  <div class="sheet leave-sheet" role="dialog" aria-modal="true" aria-labelledby="leave-title">
+    <h3 id="leave-title">走之前，哪句更像？</h3>
+    <p class="sheet-desc" id="leave-desc">选一个就好，也可以直接关掉。</p>
+    <div class="leave-options">
+      <button type="button" data-leave-reason="太啰嗦">太啰嗦</button>
+      <button type="button" data-leave-reason="没听懂我">没听懂我</button>
+      <button type="button" data-leave-reason="不是我要的">不是我要的</button>
+    </div>
+    <button class="link leave-skip" id="leave-skip" type="button">直接关掉</button>
+  </div>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script src="/relief-ui.js"></script>
+<script src="/app.js"></script>
+</body>
+</html>

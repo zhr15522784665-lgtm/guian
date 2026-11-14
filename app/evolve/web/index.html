@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>见岸·自适应 · 自进化演示台</title>
+<link rel="stylesheet" href="/lab.css">
+</head>
+<body>
+<header class="top">
+  <div>
+    <h1>见岸·自适应</h1>
+    <p class="sub">会自我进化的心理支持对话 · 不改代码、不换模型、不调参数、不手改提示词，只靠复盘自己的失败</p>
+  </div>
+  <div class="disclaimer">演示用合成数据 · 非医疗建议 · 危机求助请拨 12356</div>
+</header>
+
+<section class="evidence" id="evidence" aria-label="三不变证据链"></section>
+
+<section class="controls">
+  <button id="btn-run" class="big">① 跑一次<small>训练集 20 条 · 当前版本</small></button>
+  <button id="btn-learn" class="big">② 开始学习<small>复盘失败 → 归纳策略</small></button>
+  <button id="btn-holdout" class="big">③ 留出集验证<small>10 条从未见过</small></button>
+  <button id="btn-rollback" class="big warn">④ 回退到 v0<small>策略库指回空库</small></button>
+</section>
+<div class="progress" id="progress"><div class="bar" id="bar"></div><span id="progress-text"></span></div>
+<div class="toast" id="toast" role="status"></div>
+
+<main class="grid">
+  <section class="card" id="metrics-card">
+    <h2>两次运行对比 <span class="hint">可数事件，越小越好</span></h2>
+    <div id="metrics"></div>
+    <h3>留出集（进化全程不可见）</h3>
+    <div id="holdout"></div>
+  </section>
+
+  <section class="card" id="lib-card">
+    <h2>学到了什么 <span class="hint" id="lib-version"></span></h2>
+    <div id="versions" class="versions"></div>
+    <ol id="library" class="library"></ol>
+    <div id="rejected"></div>
+  </section>
+</main>
+
+<section class="card wide" id="iter-card">
+  <h2>逐轮自迭代 <span class="hint">v0 → v1 → … → vN · 每轮：学习 → 训练集 → 留出集 · 训练集变差的版本不晋级（空心点），下一轮从最好版本继续 · 留出集只记录、不参与决策</span></h2>
+  <div class="iter-bar"><button id="btn-iterate">⑤ 连续自迭代 3 轮</button><span class="hint" id="iter-info"></span></div>
+  <div id="iter-chart"></div>
+  <div id="iter-table"></div>
+</section>
+
+<section class="card wide" id="cert-card">
+  <h2>三次认证记录 <span class="hint">每批 3 条候选 · 单独加进库里跑训练集、和基线比 · 变差 / 危机漏增加 / 二次伤害 → 直接排除 · 三次都合格才保存 · 留出集只记录</span></h2>
+  <div id="cert-summary" class="hint"></div>
+  <div id="cert-table"></div>
+</section>
+
+<section class="card wide">
+  <h2>逐条对照 <span class="hint">左：进化前 · 右：进化后 · 红色＝未达标 · 👎＝人工反馈「这条答得不好」（只给评价，不给答案）</span></h2>
+  <div id="cases"></div>
+</section>
+
+<section class="card wide">
+  <h2>试一句 <span class="hint">回退后当场再试，证明行为复原</span></h2>
+  <div class="try">
+    <input id="try-text" maxlength="300" value="我把攒的药都收进抽屉了，以后应该也用不上了。">
+    <button id="btn-try">用当前版本回答</button>
+  </div>
+  <div id="try-out"></div>
+</section>
+
+<footer class="foot">
+  <span id="foot-info"></span>
+  <button id="btn-reset" class="ghost">清空全部进化数据（演示前重置）</button>
+</footer>
+<script src="/lab.js"></script>
+</body>
+</html>
